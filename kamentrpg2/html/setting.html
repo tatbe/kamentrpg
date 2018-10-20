@@ -78,15 +78,17 @@
                 var name = $(data).val(); // 名前
                 // 名前が入力されていないテキストエリアがある場合は処理終了
                 if (!name) {
-                    inputErrorFlag = true;
-                    alert('名前が入力されていないプレイヤーがいるとゲームをはじめられないよ！');
-                    return false;
+                    //inputErrorFlag = true;
+                    //alert('名前が入力されていないプレイヤーがいるとゲームをはじめられないよ！');
+                    //return false;
+                    name = 'プレイヤー' + no;
                 }
 
                 // プレイヤー情報追加
                 players.push({
                     no: no,
-                    name: name
+                    name: name,
+                    role: '王様'
                 });
             });
 
@@ -96,7 +98,8 @@
             }
 
             // ローカルストレージにセット
-            localStorage.setItem("players", players);
+            localStorage.setItem("players", JSON.stringify(players));
+
             // 画面遷移
             window.location.href = "./kakunin.html";
         });
