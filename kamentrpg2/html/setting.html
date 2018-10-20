@@ -13,24 +13,25 @@
                     <span class="noText">1</span><input type="textArea" data-pc-no="1" class="input-name" />
                     <button class="upRow">▲</button>
                     <button class="downRow">▼</button>
-                    <button class="removePc">-</button>
+                    <button class="removePc">－</button>
                 </div>
                 <div class="input-row">
                     <span class="noText">2</span><input type="textArea" data-pc-no="2" class="input-name" />
                     <button class="upRow">▲</button>
                     <button class="downRow">▼</button>
-                    <button class="removePc">-</button>
+                    <button class="removePc">－</button>
                 </div>
                 <div class="input-row">
                     <span class="noText">3</span><input type="textArea" data-pc-no="3" class="input-name" />
                     <button class="upRow">▲</button>
                     <button class="downRow">▼</button>
-                    <button class="removePc">-</button>
+                    <button class="removePc">－</button>
                 </div>
         </div>
         <div>
-            <button id="addPc">プレイヤー追加</button>
-            <a href="./kakunin.html">ゲームスタート！</a>
+            <button id="addPc">＋プレイヤー追加</button>
+            <button id="gameStart" style="font-size: 30px">ゲームスタート</button>
+            <a href="./index.html">TOPへ</a>
         </div>
     </body>
     <script type="text/javascript">
@@ -56,7 +57,7 @@
             html += '    <span class="noText"></span><input type="textArea" data-pc-no="" class="input-name" />';
             html += '    <button class="upRow">▲</button>';
             html += '    <button class="downRow">▼</button>';
-            html += '    <button class="removePc">-</button>';
+            html += '    <button class="removePc">－</button>';
             html += '</div>';
 
             // html追加
@@ -66,69 +67,39 @@
             updateNo();
         });
 
-        // // プレイヤー削除クリックイベント
-        // $('.removePc').click(function(e) {
-        //     var count = 0 // 追加前のプレイヤー数
+        // ゲームスタートクリックイベント
+        $('#gameStart').click(function() {
+            var players = []; // プレイヤー全員の情報
+            var inputErrorFlag = false; // 入力不備がある場合はtrue
 
-        //     // プレイヤー数取得
-        //     count = $('.input-name').length;
+            // プレイヤー情報代入
+            $('.input-name').each(function(i, data) {
+                var no = i + 1; // 番号
+                var name = $(data).val(); // 名前
+                // 名前が入力されていないテキストエリアがある場合は処理終了
+                if (!name) {
+                    inputErrorFlag = true;
+                    alert('名前が入力されていないプレイヤーがいるとゲームをはじめられないよ！');
+                    return false;
+                }
 
-        //     // プレイヤー数が2名以下だった場合、処理しない
-        //     if (count <= 2) {
-        //         return;
-        //     }
+                // プレイヤー情報追加
+                players.push({
+                    no: no,
+                    name: name
+                });
+            });
 
-        //     var el = $(e.target); // 対象のボタン
-        //     var inputRowEl = el.parent(); // ボタンの親要素
+            // 入力不備があった場合、処理終了
+            if (inputErrorFlag) {
+                return;
+            }
 
-        //     // 対象の列削除
-        //     $(inputRowEl).remove();
-
-        //     // プレイヤー番号更新
-        //     updateNo();
-        // });
-
-        // // 列上昇クリックイベント
-        // $('.upRow').click(function(e) {
-        //     var el = $(e.target); // 対象のボタン
-        //     var inputRowEl = el.parent(); // ボタンの親要素
-        //     var nameEl = el.prev('input'); // 対象のプレイヤー名テキストエリア
-        //     var targetRowEl = $(inputRowEl).prev('.input-row'); // ひとつ上の列
-        //     // ひとつ上の列が存在しない場合、処理終了
-        //     if(targetRowEl.length == 0) {
-        //         return;
-        //     }
-        //     var targetNameEl = $(targetRowEl).children('input'); // ひとつ上のテキストエリア
-            
-
-        //     // プレイヤー名を交換
-        //     var text = $(nameEl).val();
-        //     var targetText = $(targetNameEl).val();
-        //     $(nameEl).val(targetText);
-        //     $(targetNameEl).val(text);
-            
-        // });
-
-        // // 列下降クリックイベント
-        // $('.downRow').click(function(e) {
-        //     var el = $(e.target); // 対象のボタン
-        //     var inputRowEl = el.parent(); // ボタンの親要素
-        //     var nameEl = el.prev().prev('input'); // 対象のプレイヤー名テキストエリア
-        //     var targetRowEl = $(inputRowEl).next('.input-row'); // ひとつ下の列
-        //     // ひとつ下の列が存在しない場合、処理終了
-        //     if(targetRowEl.length == 0) {
-        //         return;
-        //     }
-        //     var targetNameEl = $(targetRowEl).children('input'); // ひとつ下のテキストエリア
-            
-
-        //     // プレイヤー名を交換
-        //     var text = $(nameEl).val();
-        //     var targetText = $(targetNameEl).val();
-        //     $(nameEl).val(targetText);
-        //     $(targetNameEl).val(text);
-            
-        // });
+            // ローカルストレージにセット
+            localStorage.setItem("players", players);
+            // 画面遷移
+            window.location.href = "./kakunin.html";
+        });
 
         // 各列のクリックイベント
         $('#inputArea').click(function(e) {

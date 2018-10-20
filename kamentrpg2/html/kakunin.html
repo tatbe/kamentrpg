@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <meta charset="utf-8">
+        <title>kamenTRPG</title>
+        <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <div class="page-title">確認</div>
+        <div>＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠</div>
+        <div id="strageTest"></div>
+    </body>
+    <script type="text/javascript">
+        var players = localStorage.getItem("players");
+        console.log('ローカルストレージ', data);
+
+        // 処理の流れ
+        /*
+        ⓵プレイヤー１さんがこの画面をみてください。役職を表示します。他のプレイヤーに見られないように表示してください。
+        ⓶お題を表示します。よろしいですか？
+        ⓷役職「○○○」　覚えたボタン押下で⓵に戻る
+        */
+
+        // プレイヤーの数だけループする処理
+        $.each(players, function(i, data) {
+            // 確認テキスト表示
+
+            // 最終確認テキスト
+        });
+    </script>
+</html>
+
+
