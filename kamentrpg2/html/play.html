@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <meta charset="utf-8">
+        <title>kamenTRPG</title>
+        <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+    </head>
+    <body>
+        <div class="page-title">セッション</div>
+        <div>＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠</div>
+        <div id="startBtnArea">
+            <button id="start">セッションスタート！</button>
+        </div>
+        <div id="playArea" style="display: none;">
+            <div id="scene_1">
+                <span class="scene-text">洞窟に閉じ込められた！みんなで脱出する方法を考えよう</span>
+                <button id="btn_1">解決！</button>
+            </div>
+            <div id="scene_2" style="display: none;">
+                <span class="scene-text">ゾンビが現れた！どうしよう！</span>
+                <button id="btn_2">解決！</button>
+            </div>
+            <div id="scene_3" style="display: none;">
+                <span class="scene-text">おなかがすいた！なにか食べよう！</span>
+                <button id="btn_3">解決！</button>
+            </div>
+            <div id="scene_4" style="display: none;">
+                <span class="scene-text">不安になってきた！楽しいことを考えよう！</span>
+                <button id="btn_4">解決！</button>
+            </div>
+        </div>
+        <div id="endBtnArea" style="display: none;">
+            <button id="end">セッション終了！回答画面へ</button>
+        </div>
+    
+    </body>
+    <script type="text/javascript">
+        // セッションスタートボタンクリックイベント
+        $('#start').click(function() {
+            $('#playArea').show();
+            $('#startBtnArea').hide();
+        });
+
+        // シーン１解決ボタンクリックイベント
+        $('#btn_1').click(function() {
+            $('#scene_2').show();
+            $(this).attr('disabled', 'disabled');
+        });
+
+        // シーン２解決ボタンクリックイベント
+        $('#btn_2').click(function() {
+            $('#scene_3').show();
+            $(this).attr('disabled', 'disabled');
+        });
+
+        // シーン３解決ボタンクリックイベント
+        $('#btn_3').click(function() {
+            $('#scene_4').show();
+            $(this).attr('disabled', 'disabled');
+        });
+
+        // シーン４解決ボタンクリックイベント
+        $('#btn_4').click(function() {
+            $('#endBtnArea').show();
+            $(this).attr('disabled', 'disabled');
+        });
+
+        // セッション終了ボタンクリックイベント
+        $('#end').click(function() {
+            // 画面遷移
+            window.location.href = "./answer.html";
+        });
+    </script>
+</html>
+
+
