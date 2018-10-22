@@ -46,6 +46,15 @@
             });
         }
 
+        var roles = [
+            '王様',
+            '幽霊',
+            'プリンセス',
+            '大金持ち',
+            '人型ロボット',
+            '人に化けた宇宙人'
+        ];
+
         // プレイヤー追加クリックイベント
         $('#addPc').click(function(e) {
             var html = '' // 追加するhtml
@@ -84,11 +93,13 @@
                     name = 'プレイヤー' + no;
                 }
 
+                var ransu = Math.floor(Math.random() * roles.length); // 乱数
+
                 // プレイヤー情報追加
                 players.push({
                     no: no,
                     name: name,
-                    role: '王様'
+                    role: roles[ransu]
                 });
             });
 
