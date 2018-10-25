@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>kamenTRPG</title>
         <script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="../js/roles.js"></script>
     </head>
     <body>
         <div class="page-title">プレイヤーの人数と名前を設定しよう</div>
@@ -45,15 +46,6 @@
                 $(data).children('input').attr('data-pc-no', num);
             });
         }
-
-        var roles = [
-            '王様',
-            '幽霊',
-            'プリンセス',
-            '大金持ち',
-            '人型ロボット',
-            '人に化けた宇宙人'
-        ];
 
         // プレイヤー追加クリックイベント
         $('#addPc').click(function(e) {
@@ -99,7 +91,8 @@
                 players.push({
                     no: no,
                     name: name,
-                    role: roles[ransu]
+                    role: roles[ransu],
+                    answer: []
                 });
             });
 
