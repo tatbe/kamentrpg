@@ -9,6 +9,7 @@
     <body>
         <div class="page-title">プレイヤーの人数と名前を設定しよう</div>
         <div>＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠＠</div>
+        <div id="selectArea">役職のテーマ<select name="theme"></select></div>
         <div id="inputArea">
                 <div class="input-row">
                     <span class="noText">1</span><input type="textArea" data-pc-no="1" class="input-name" />
@@ -47,6 +48,38 @@
             });
         }
 
+        // セレクトボックス生成
+        var optionHtml = '';
+        // $.each(roles, function(i, data) {
+        //     optionHtml += '<option value="' + data.theme + '">' + data.name + '</option>';
+        // });
+        for (var prop in roles) {
+            optionHtml += '<option value="' + prop + '">' + roles[prop].name + '</option>';
+        }
+        $('select').html(optionHtml);
+
+        // ローカルストレージにデータが存在する場合
+        var oldData = JSON.parse(localStorage.getItem("players"));
+        console.log('ローカルストレージ', oldData);
+        var initHtml = '';
+        if (oldData) {
+            // 初期化
+            $('.input-row').remove();
+            
+            $.each(oldData, function(i, data) {
+                var no = i + 1
+                initHtml += '<div class="input-row">';
+                initHtml += '    <span class="noText">' + no + '</span><input type="textArea" data-pc-no="' + no + '" class="input-name" value="' + data.name + '" />';
+                initHtml += '    <button class="upRow">▲</button>';
+                initHtml += '    <button class="downRow">▼</button>';
+                initHtml += '    <button class="removePc">－</button>';
+                initHtml += '</div>';
+            });
+
+            // 描画
+            $('#inputArea').append(initHtml);
+        }
+
         // プレイヤー追加クリックイベント
         $('#addPc').click(function(e) {
             var html = '' // 追加するhtml
@@ -72,6 +105,7 @@
         $('#gameStart').click(function() {
             var players = []; // プレイヤー全員の情報
             var inputErrorFlag = false; // 入力不備がある場合はtrue
+            var theme = $('select').val(); // 役職のテーマを取得
 
             // プレイヤー情報代入
             $('.input-name').each(function(i, data) {
@@ -85,13 +119,13 @@
                     name = 'プレイヤー' + no;
                 }
 
-                var ransu = Math.floor(Math.random() * roles.length); // 乱数
+                var ransu = Math.floor(Math.random() * roles[theme].list.length); // 乱数
 
                 // プレイヤー情報追加
                 players.push({
                     no: no,
                     name: name,
-                    role: roles[ransu],
+                    role: roles[theme].list[ransu],
                     answer: []
                 });
             });
