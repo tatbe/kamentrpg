@@ -51,10 +51,9 @@
         // 次の回答者へボタンクリックイベント
         $('#next').click(function(e) {
             // 回答した役職をjsonにセット
-            //players[count].answer = [];
             var answer = [];
             $('.input-role').each(function(i, el) {
-                var num = Number($(el).data('data-pc-no')) - 1; // 何番目のプレイヤーか
+                var num = Number($(el).data('pcNo')) - 1; // 何番目のプレイヤーか
                 var role = $(el).val(); // 役職
                 if (role == '') {
                     role = 'わからない役職';
@@ -63,17 +62,16 @@
                     name: players[count].name,
                     role: role
                 }
-                players[num].answer = push(obj);
-                //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@実装中・・・保存用のjson作成まではつくった。保存処理はまだ
+                players[num].answer.push(obj);
             });
 
             // カウントアップ
             count++;
-            
-            // 描画
-            inputRender();
 
-            if (count + 1 == playerLength) {
+            if (count != playerLength) {
+                // 最後以外のプレイヤーの場合は再描画
+                inputRender();
+            } else {
                 // 最後のプレイヤーの時、画面遷移ボタンを表示
                 $('#next').hide();
                 $('#linkResult').show();
@@ -82,6 +80,9 @@
 
         // 答え合わせ画面遷移ボタンクリックイベント
         $('#linkResult').click(function() {
+            // ローカルストレージにセット
+            localStorage.setItem("players", JSON.stringify(players));
+
             // 画面遷移
             window.location.href = "./result.html";
         });
